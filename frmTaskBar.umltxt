@@ -1,0 +1,28 @@
+@startuml
+title 无标题窗口显示任务栏
+start
+:窗口A创建]
+:打开窗口B(this)]
+end
+
+start
+:窗口B创建]
+note
+传入JFrame型变量j
+endnote
+:当前窗口最小化]
+:窗口状态改变时/
+if(ij)then(j当前被最小化了)
+	:j恢复正常窗口状态]
+	:当前窗口最小化]
+	:j置顶]
+	:j取消置顶]
+	note
+	这两行是为了将j显示到最前，但又允许被其他窗口盖住
+	endnote
+else
+	:j最小化]
+	:当前窗口最小化]
+endif
+end
+@enduml
