@@ -1,0 +1,8 @@
+@startuml
+title 键值对
+(password)--(Liu1998/0604)
+(driver)--(com.mysql.cj.jdbc.Driver)
+(exists)--(1)
+(user)--(root)
+(dburl)--('jdbc:mysql://localhost:3306/commodity?useSSL=false&serverTimezone=GMT')
+@enduml

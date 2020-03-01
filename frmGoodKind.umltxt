@@ -1,0 +1,69 @@
+@startuml
+	title 商品种类管理
+	start
+	partition 主程序 {
+		:初始化]
+		if(用户权限小于1)then(true)
+			stop
+		endif
+		:数据库查询]
+		while(rs.next())
+			:在表格中添加当前数据行]
+		endwhile
+	}
+	split
+		partition 点击了添加按钮 {
+			:在表格最后追加空行(id=add，其他为空)]
+		}
+	split again
+		partition 点击了提交按钮 {
+			while(表格的每一行执行循环)
+				if(当前行id=add)then(true)
+					:拼接成insert命令]
+				else(false)
+					:拼接成update命令]
+				endif
+			endwhile
+			:执行sql命令]
+			:打开新窗口]
+			stop
+		}
+	split again
+		partition 点击了删除按钮 {
+			if(是否真的要删除)then(true)
+				:拼接delete命令]
+				:执行sql命令]
+			endif
+		}
+	split again
+		partition 修改了每页记录条数 {
+			if(记录条数>100||记录条数<0)then(true)
+				:记录条数=prePageCountValue]
+				note
+					prePageCountValue是一个全局变量
+				endnote
+			endif
+			:prePageCountValue=记录条数]
+			:调用修改了当前页码的过程;
+			
+		}
+	split again
+		partition 修改了当前页码 {
+			:拼接sql命令执行查询]
+			while(rs.next())
+				if(第一次执行循环)then(true)
+					:删除表内所有内容]
+				endif
+				:插入当前行数据到表格]
+			endwhile
+			if(循环一次都没执行(没有查到内容))then(true)
+				:当前页码=prePageValue]
+				note
+				prePageValue是一个全局变量
+				endnote
+			endif
+			:prePageValue=记录条数]
+		}
+	endsplit
+	end
+@enduml
