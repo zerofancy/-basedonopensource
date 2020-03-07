@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>图片预览测试</title>
+    <script type="text/javascript" src="js/Image.0.1.min.js"></script>
+    <script type="text/javascript" src="js/ImageTrans.js"></script>
+    <style type="text/css">
+        #idContainer {
+            border: 1px solid #000;
+            width: 100%;
+            height: 600px;
+            background:#e8e8e8;
+            margin: 0 auto;
+            position:relative;
+        }
+        #btncontainer {
+            width: auto;
+            height: auto;
+            position:absolute;
+            left:800px;
+            top:50px;
+            z-index:999;
+        }
+        #btncontainer img {
+            cursor:pointer;
+            border:1px dashed #ffffff;
+        }
+    </style>
+</head>
+<body>    
+    <div id="idContainer">
+        <div id="btncontainer">
+            <img id="idLeft" src="images/left.png" title="左旋转" />
+            <img id="idRight" src="images/right.png"  title="右旋转" />
+            <img id="idVertical" src="images/chuizhi.png"  title="垂直旋转" />
+            <img id="idHorizontal" src="images/shuiping.png"  title="水平旋转" />
+        </div>
+    </div>
+	<h2>提示：您可以用鼠标滚轮直接控制缩放，通过拖动实现图片的平移。</h2>
+    <script type="text/javascript">
+        (function () {
+            var container = $$("idContainer"), src = "images/test.svg",
+                options = {
+                    mode: "css3",
+                    onPreLoad: function () { container.style.backgroundImage = "url('images/loading.gif')"; },
+                    onLoad: function () { container.style.backgroundImage = ""; },
+                    onError: function (err) { container.style.backgroundImage = ""; alert(err); }
+                },
+                it = new ImageTrans(container, options);
+            it.load(src);
+            $$("idVertical").onclick = function () { it.vertical(); }
+            $$("idHorizontal").onclick = function () { it.horizontal(); }
+            $$("idLeft").onclick = function () { it.left(); }
+            $$("idRight").onclick = function () { it.right(); }
+        })()
+    </script>
+    <!--此测试DEMO尚未封装代码，请使用时根据实际情况自行封装js及css代码。  @LiuJg/2015.05.18-->
+</body>
+</html>
